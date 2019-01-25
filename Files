@@ -1,3 +1,4 @@
+// may not work because i added md5().
 <html>
     <body>
     <p> Create account: </p>
@@ -27,8 +28,8 @@ echo 'Current PHP version: ' . phpversion();
 //Remove error message
 error_reporting(E_ERROR | E_PARSE);
 //set input for password to pass and email to mail from html.
-$pass=$_POST["password"];
-$mail=$_POST["email"];
+$pass=md5($_POST["password"]);
+$mail=md5($_POST["email"]);
 //Open/Create file call email and set it to var file.
 $file=fopen("email.txt", "a");
 //write email and password to file.
@@ -41,8 +42,8 @@ fclose($file);
 
 <?php
 //get login password from html and set input to vars.
-$lpass=$_POST["logpassword"];
-$lmail=$_POST["logemail"];
+$lpass=md5($_POST["logpassword"]);
+$lmail=md5($_POST["logemail"]);
 //get contents of file and set to x
 $x = file_get_contents( "email.txt" );
 // combind login pass and mail
