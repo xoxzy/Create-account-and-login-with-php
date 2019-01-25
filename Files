@@ -1,0 +1,57 @@
+<html>
+    <body>
+    <p> Create account: </p>
+    
+    <form method="post">
+    <input type="text" name="email" placeholder="Email"/>
+    <input type="text" name="password" placeholder="Password"/>
+    <br><br>
+    
+    <input type="submit" value="submit"/>
+    </form>
+    
+    <p> Login: </p>
+    <form method="post">
+    <input type="text" name="logemail" placeholder="Email"/>
+    <input type="text" name="logpassword" placeholder="Password"/>
+    <br><br>
+    
+    <input type="submit" value="submit"/>
+    </form>
+    </body> 
+</html>
+
+<?php
+// Print version
+echo 'Current PHP version: ' . phpversion();
+//Remove error message
+error_reporting(E_ERROR | E_PARSE);
+//set input for password to pass and email to mail from html.
+$pass=$_POST["password"];
+$mail=$_POST["email"];
+//Open/Create file call email and set it to var file.
+$file=fopen("email.txt", "a");
+//write email and password to file.
+fwrite($file, $mail);
+fwrite($file, $pass);
+//close file
+fclose($file);
+
+?>
+
+<?php
+//get login password from html and set input to vars.
+$lpass=$_POST["logpassword"];
+$lmail=$_POST["logemail"];
+//get contents of file and set to x
+$x = file_get_contents( "email.txt" );
+// combind login pass and mail
+$y = $lmail.$lpass;
+// see if login is in database.
+if (\strpos($x, $y) !== false) {
+    echo 'LOGIN WORK';
+}else{
+    echo 'LOGIN FAIL';
+}
+
+?>
